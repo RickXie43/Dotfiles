@@ -1,0 +1,241 @@
+#Fortran Function
+#Fortran Function Module-------------------------------------------------------------------------------------------------------
+snippet main "Fortran Main Function" b
+!============================================================
+!Version:
+!  Date            Author              Description
+!  ========	========            ===================
+!  `date +%d/%m/%y`	Rick		Initialize
+!
+!============================================================
+Program ${1:${VISUAL:MAIN}}
+Implicit None
+$0
+End Program $1
+endsnippet 
+
+snippet mpimain "MPI Fortran Main Function" b
+!============================================================
+!Version:
+!  Date            Author              Description
+!  ========	========            ===================
+!  `date +%d/%m/%y`	Rick		Initialize
+!
+!============================================================
+
+Program ${1:${VISUAL:MAIN}}
+	Use mpi_f08
+	Implicit None
+        !MPI Parameters
+        Integer::ierror, rank, num_proc, i
+
+	!MPI Initialize
+        Call MPI_Init(ierror)
+        Call MPI_Comm_Size(MPI_COMM_WORLD, num_proc, ierror)
+        Call MPI_Comm_Rank(MPI_COMM_WORLD, rank, ierror)
+        rank0print: If (rank == 0) Then
+                Write (*, *) 'MPI Initialize Successful.'
+                Write (*, *) 'The number of MPI processes is ', num_proc
+        End If rank0print
+
+        !Paralleling process =====================================================================
+	$0
+
+        !MPI Finalize
+        Call MPI_Finalize(ierror)
+End Program $1
+endsnippet 
+
+snippet tag "Tag Information" b
+!  `date +%d/%m/%y`        Rick                ${1:${VISUAL:DESCRIPTION}}
+endsnippet 
+
+# snippet case "Select Case Module" b
+# ${1:${VISUAL:Case_NAME}}: Select Case(${2:${VISUAL:IF CONDITION}})
+#     ${3:${VISUAL:! IF BLOCK}}
+#   Else
+#     ${4:${VISUAL:! IF BLOCK}}
+#   End If $1
+# $0
+# endsnippet
+
+snippet if "if module" b
+${1:${VISUAL:IFNAME}}: If(${2:${VISUAL:IFCONDITION}}) Then
+    ${3:${VISUAL:! IFBLOCK}}
+  Else
+    ${4:${VISUAL:! IFBLOCK}}
+  End If $1
+$0
+endsnippet
+
+snippet do "do module" b
+${1:${VISUAL:DONAME}}: Do
+    ${2:${VISUAL:! DOBLOCK}}
+  End Do $1
+$0
+endsnippet
+
+snippet doi "do index module" b
+${1:${VISUAL:DONAME}}: Do ${2:${VISUAL:INDEX}}=${3:${VISUAL:ISTART,IEND,INCR}}
+    ${4:${VISUAL:! DOBLOCK}}
+  End Do $1
+$0
+endsnippet
+
+snippet eif "elseif module" 
+Else If
+$0
+endsnippet
+
+snippet where "where module"
+${1:${VISUAL:WHERENAME}}: Where (${2:${VISUAL:MASK_EXPR}})
+    ${3:${VISUAL:! WHEREBLOCK}}
+  End Where $1
+$0
+endsnippet
+
+snippet sub "subroutine module" b
+Subroutine ${1:${VISUAL:SUBROUTINE_NAME}} (${2:${VISUAL:PARAMETER}})
+Implicit None
+${4:${VISUAL:! SUBROUTINE_BLOCK}}
+End Subroutine $1
+$0
+endsnippet
+
+snippet func "function module" b
+${1:${VISUAL:TYPE}} Function ${2:${VISUAL:FUNCTION_NAME}} (${3:${VISUAL:PARAMETER}})
+Implicit None
+${4:${VISUAL:! FUNCTION_BLOCK}}
+End Function $2
+$0
+endsnippet
+
+snippet mol "module module"
+Module ${1:${VISUAL:MODULE_NAME}}
+Implicit None
+Save
+Private
+${2:${VISUAL:! MODULE_BLOCK}}
+End Module $1
+$0
+endsnippet
+
+snippet block  "block module"
+${1:${VISUAL:BLOCKNAME}}: Block
+    ${3:${VISUAL:! BLOCK}}
+  End Block $1
+$0
+endsnippet
+#Call Functions--------------------------------------------------------------------------------------------------------------
+snippet int "integer module" 
+Integer::${1:${VISUAL:VARIABLE_NAME}}
+endsnippet
+
+snippet intc "constant integer module" 
+Integer,Parameter::${1:${VISUAL:VARIABLE_NAME}}=${2:${VISUAL:CONSTANT}}
+endsnippet
+
+snippet intd "integer array module" 
+Integer,Dimension(${1:${VISUAL:DIMENSION_SHAPE}})::${2:${VISUAL:VARIABLE_NAME}}=${3:${VISUAL:CONSTANT}}
+endsnippet
+
+snippet inti "intent integer module" 
+Integer,Intent(${1:${VISUAL:In}})::${2:${VISUAL:VARIABLE_NAME}}
+endsnippet
+
+snippet intid "intent integer array module" 
+Integer,Intent(${1:${VISUAL:In}}),Dimension(${2:${VISUAL:DIMENSION_SHAPE}})::${3:${VISUAL:VARIABLE_NAME}}
+endsnippet
+
+snippet real "Real module" 
+Real::${1:${VISUAL:VARIABLE_NAME}}
+endsnippet
+
+snippet realc "constant real module" 
+Real,Parameter::${1:${VISUAL:VARIABLE_NAME}}=${2:${VISUAL:CONSTANT}}
+endsnippet
+
+snippet reald "real array module" 
+Real,Dimension(${1:${VISUAL:DIMENSION_SHAPE}})::${2:${VISUAL:VARIABLE_NAME}}=${3:${VISUAL:CONSTANT}}
+endsnippet
+
+snippet reali "intent real module" 
+Real,Intent(${1:${VISUAL:In}})::${2:${VISUAL:VARIABLE_NAME}}
+endsnippet
+
+snippet realid "intent real array module" 
+Real,Intent(${1:${VISUAL:In}}),Dimension(${2:${VISUAL:DIMENSION_SHAPE}})::${3:${VISUAL:VARIABLE_NAME}}
+endsnippet
+
+snippet str "string module" 
+Character(len=${1:${VISUAL:LENGTH}})::${2:${VISUAL:STRING_NAME}}
+endsnippet
+
+snippet stri "intent string module" 
+Character(len=${1:${VISUAL:LENGTH}}),Intent(${2:${VISUAL:In}})::${3:${VISUAL:STRING_NAME}}
+endsnippet
+
+snippet typemod "type module" 
+Type::${1:${VISUAL:TYPE_NAME}}
+  ${2:${VISUAL:TypeModule}}
+End Type $1
+$0
+endsnippet
+
+snippet type "Call type function"
+Type(${1:${VISUAL:TYPE_NAME}})::${2:${VISUAL:MEMBER_NAME}}
+$0
+endsnippet
+
+snippet pub "Set Public Variable and Routine that canbe used in Program"
+!Set Public Variable and Routine that canbe used in Program
+Public::${1:${VISUAL:PUBLIC_LIST}}
+$0
+endsnippet
+
+snippet pro "Set Protected Variable and Routine that canbe read in Program"
+!Set Public Variable and Routine that canbe read in Program
+Protected::${1:${VISUAL:PROTECTED_LIST}}
+$0
+endsnippet
+
+#Logic Functions-------------------------------------------------------------------------------------------------------------
+snippet and "and operator"
+.And. $1
+endsnippet
+
+snippet or "or operator"
+.Or. $1
+endsnippet
+
+snippet not "not operator"
+.Not. $1
+endsnippet
+
+snippet eq "equal operator"
+.Eqv. $1
+endsnippet
+
+snippet neq "not equal operator"
+.NEqv. $1
+endsnippet
+
+#IO Functions-------------------------------------------------------------------------------------------------------------
+snippet io "open file in io unit" 
+Open(Unit=${1:${VISUAL:Unit_Number}}, File=${2:${VISUAL:File_Name}},Status='${3:${VISUAL:New}}',Iostat=ierror)
+$4
+Close(Unit=$1)
+$0
+endsnippet
+
+snippet write "write module"
+Write(*,*) $1
+endsnippet
+#Other Functions-------------------------------------------------------------------------------------------------------------
+
+snippet cmd "get command argument"
+!Read Commend Argument through String $1 to Argu $3
+Call GET_COMMAND_ARGUMENT(${1:${VISUAL:Argu_Number}},${2:${VISUAL:String_Name}})
+Read($2,*) ${3:${VISUAL:Argu_Name}}
+$0
+endsnippet

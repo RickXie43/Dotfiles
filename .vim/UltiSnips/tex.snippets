@@ -1,0 +1,236 @@
+#LaTeX Function
+
+#=====================================================================================
+#Article Structure Snippets
+snippet sec "Section" b
+\section{${1:${VISUAL:section name}}}%
+\label{sec:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+$0
+endsnippet
+
+snippet sec* "Section" b
+\section*{${1:${VISUAL:section name}}}%
+\label{sec:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+${0}
+endsnippet
+
+
+snippet sub "Subsection" b
+\subsection{${1:${VISUAL:subsection name}}}%
+\label{sub:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+$0
+endsnippet
+
+snippet sub* "Subsection" b
+\subsection*{${1:${VISUAL:subsection name}}}%
+\label{sub:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+${0}
+endsnippet
+
+snippet ssub "Subsubsection" b
+\subsubsection{${1:${VISUAL:subsubsection name}}}%
+\label{ssub:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+$0
+endsnippet
+
+snippet ssub* "Subsubsection" b
+\subsubsection*{${1:${VISUAL:subsubsection name}}}%
+\label{ssub:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+${0}
+endsnippet
+
+#=====================================================================================
+#Special Environment
+snippet eqn "Equation with number" b
+\begin{equation}
+	${1:${VISUAL}}
+\end{equation}
+$0
+endsnippet
+
+snippet eqnn "Equation without number" b
+\begin{equation*}
+	${1:${VISUAL}}
+\end{equation*}
+$0
+endsnippet
+
+snippet fig "Figure environment" b
+\begin{figure}[${2:H}]
+	\centering
+	\includegraphics[width=${3:0.8}\linewidth]{${4:name}}
+	\caption{${4/(\w+)\.\w+/\u$1/}$0}%
+	\label{fig:${4/(\w+)\.\w+/$1/}}
+\end{figure}
+endsnippet
+
+snippet ize "item environment" b
+\begin{itemize}
+	${1:${VISUAL}}
+\end{itemize}
+$0
+endsnippet
+
+snippet item "item" b
+\item 
+endsnippet
+
+
+
+#=====================================================================================
+#Command
+snippet usp "usepackage" b
+\usepackage{${1:${VISUAL:package name}}}$0
+endsnippet
+
+#=====================================================================================
+#Inline Command
+snippet cite "cite reference" i
+\cite{${1:${VISUAL:literature name}}}$0
+endsnippet
+
+snippet emp "emphasize text" i
+\emph{${1:${VISUAL:emphasized text}}}$0
+endsnippet
+
+snippet bold "bold text" i
+\textbf{${1:${VISUAL:bold text}}}$0
+endsnippet
+
+
+#=====================================================================================
+#Bibliography Snippets
+snippet bib "Create Bibliographystyle Page"
+\bibliographystyle{plain}
+\bibliography{${1:${VISUAL:bibname}}}
+
+$0
+endsnippet
+
+#=====================================================================================
+#Math Function Snippets
+snippet frac "\frac{}{}" i 
+\frac{${1:${VISUAL}}}{${2:${VISUAL}}}$0
+endsnippet
+
+snippet vec "\vec{}" i
+\vec{${1:${VISUAL}}}$0
+endsnippet
+
+snippet cdot "cdot" i
+\cdot 
+endsnippet
+
+snippet pd "\partial" i
+\partial
+endsnippet
+
+snippet ln "\ln" i
+\ln
+endsnippet
+
+snippet sum "\sum" i
+\sum
+endsnippet
+
+
+snippet { "" i
+{$1}$0
+endsnippet
+
+snippet ( "" i
+($1)$0
+endsnippet
+
+snippet " "" i
+"$1"$0
+endsnippet
+
+snippet ' "" i
+'$1'$0
+endsnippet
+
+#=====================================================================================
+#Beamer Snippets
+
+snippet frame "Section" b
+\begin{frame}{${1:${VISUAL:frame name}}}
+$2
+\end{frame}
+
+$0
+endsnippet
+
+
+#=====================================================================================
+#Auto Module
+snippet rickschinesearticle "Chinese article module" b
+\documentclass{article}
+\renewcommand\refname{参考文献}
+\usepackage{ctex}
+\usepackage{graphicx}
+\usepackage{float}
+\title{${1:${VISUAL:TITLE}}}
+\author{Rick}
+\date{\today}
+
+\begin{document}
+\maketitle
+$2
+\end{document}
+endsnippet
+
+snippet ricksenglisharticle "English article module" b
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{float}
+\title{${1:${VISUAL:TITLE}}}
+\author{Rick}
+\date{\today}
+
+\begin{document}
+\maketitle
+$2
+\end{document}
+endsnippet
+
+snippet ricksbeamer "beamer module" b
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usepackage{hyperref}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+\title[short title]{${1:${VISUAL:TITLE}}} % The short title appears at the bottom of every slide, the full title is only on the title page
+\subtitle{${2:${VISUAL:SUBTITLE}}}
+\author{Rick}
+\institute 
+{
+    Tongji University
+}
+\date{\today}
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}{Overview}
+    \tableofcontents
+\end{frame}
+%-----------------------------------------------------------
+$3
+
+%-----------------------------------------------------------
+\begin{frame}
+    \Huge{\centerline{\textbf{The End}}}
+\end{frame}
+\end{document}
+endsnippet
+
+

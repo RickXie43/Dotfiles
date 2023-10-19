@@ -1,0 +1,14 @@
+#!/usr/bin/expect
+set timeout 30
+set unnas "Rick"
+set pwnas "Xjx20010117"
+spawn sudo mount -t davfs -o rw,uid=1000(rick),gid=1000(rick) https://www.rickx.com.cn:5006 /home/rick/ricksnas
+expect "sudo"
+send "186105\n"
+expect "*sername"
+send "$unnas\n"
+expect "*assword"
+send "$pwnas\n"
+expect "session"
+send "y\n"
+interact
