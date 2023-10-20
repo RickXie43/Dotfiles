@@ -239,3 +239,13 @@ Call GET_COMMAND_ARGUMENT(${1:${VISUAL:Argu_Number}},${2:${VISUAL:String_Name}})
 Read($2,*) ${3:${VISUAL:Argu_Name}}
 $0
 endsnippet
+
+snippet time "calculate time elapsed_time and print"
+Integer(8)::start_time$1, end_time$1, countrate$1
+Real::elapsed_time$1
+Call System_clock(start_time$1, countrate$1)
+Call System_clock(end_time$1, countrate$1)
+elapsed_time$1 = real(end_time$1 - start_time$1, kind=8)/real(countrate$1, kind=8)
+Write (*, *) "Elapsed_Time$1 (Unit: Second): ", elapsed_time$1
+$0
+endsnippet
